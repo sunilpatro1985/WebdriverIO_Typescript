@@ -13,7 +13,9 @@ describe('Identify elements', () => {
         //await browser.$("a=Links").click() //contaning link tag text as "Links"
         //await browser.$("a*=Lin").click() //contaning link tag partial text as "Links"
 
-        console.log(await (await browser.$("#lblname=Full Name")).getText())
+        let text = await browser.$("#lblname=Full Name").getText()
+        console.log(text)
+
         await browser.pause(2000)
         await (await browser.$("#username")).setValue("qavbox")
         await (await browser.$("#username")).getValue()
@@ -35,6 +37,10 @@ describe('Identify elements', () => {
         console.log(await (await $('<b>')).getText())
         await browser.pause(2000)
 
+    });
+
+    it('should behave...', async () => {
+        
     });
 
 });
