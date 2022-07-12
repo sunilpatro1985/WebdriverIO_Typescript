@@ -1,7 +1,7 @@
 import locators from "./locators"
 
 describe('Name of the group', () => {
-    it('should behave...', async () => {
+    xit('should behave...', async () => {
         browser.url("https://qavbox.github.io/demo/")
         browser.pause(2000)
         await $("=SignUp Form").click() //any element that has text SignUp Form
@@ -19,7 +19,7 @@ describe('Name of the group', () => {
 
         //await $('#username') //using id
         //await $('.EnterText') //using classname
-        await (await locators.getTaxtBoxIndex(1)).setValue("qavbox")
+        await (await locators.getTextBoxIndex(1)).setValue("qavbox")
 
         //=================
         //await (await $("=WebTable")).click()

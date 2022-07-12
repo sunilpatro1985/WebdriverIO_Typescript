@@ -2,7 +2,7 @@ class locators {
     getTableData(rowIndex, columnIndex){
         return $(`table[id=\'table01\'] tr:nth-child(${rowIndex}) td:nth-child(${columnIndex})`) //using css seelctor
     }
-    getTaxtBoxIndex(index){
+    getTextBoxIndex(index){
         return $(`(//input[@type=\'text\'])[${index}]`)
     }
 
