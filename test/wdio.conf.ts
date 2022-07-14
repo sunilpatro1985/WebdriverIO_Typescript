@@ -52,7 +52,7 @@ export const config: Options.Testrunner = {
     specs: [
         //'./test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
-        './test/samples/windowsize.ts'
+        './test/samples/text_checkboxes_radio.ts'
     ],
     // Patterns to exclude.
     exclude: [
