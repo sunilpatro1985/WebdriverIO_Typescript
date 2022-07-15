@@ -52,7 +52,7 @@ export const config: Options.Testrunner = {
     specs: [
         //'./test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
-        './test/samples/text_checkboxes_radio.ts'
+        './test/samples/DropDownItems.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -101,7 +101,7 @@ export const config: Options.Testrunner = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    logLevel: 'error',
     //
     // Set specific log levels per logger
     // loggers:
