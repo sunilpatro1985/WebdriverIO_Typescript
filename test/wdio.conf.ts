@@ -52,7 +52,7 @@ export const config: Options.Testrunner = {
     specs: [
         //'./test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
-        './test/samples/DropDownItems.ts'
+        './test/samples/WindowSize_Position.ts'
     ],
     // Patterns to exclude.
     exclude: [
