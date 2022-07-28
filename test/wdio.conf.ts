@@ -52,7 +52,7 @@ export const config: Options.Testrunner = {
     specs: [
         //'./test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
-        './test/samples/WebTableTest.ts'
+        './test/samples/multiWindows.ts'
     ],
     // Patterns to exclude.
     exclude: [
