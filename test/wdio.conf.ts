@@ -1,5 +1,5 @@
 import type { Options } from '@wdio/types'
-
+    
 export const config: Options.Testrunner = {
     //
     // ====================
@@ -52,7 +52,7 @@ export const config: Options.Testrunner = {
     specs: [
         //'./test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
-        './test/elements/waitForCommands.ts'
+        './test/elements/shadowDom.ts'
     ],
     // Patterns to exclude.
     exclude: [
