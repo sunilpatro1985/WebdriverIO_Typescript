@@ -1,11 +1,33 @@
 import type { Options } from '@wdio/types'
+//const urls = require("./test/data/urls")
+
+//const data = require('./test/util/appData')
+import data from './test/util/appData'
+
+let baseurl: string
+//let env = process.env.Env
+
+/*let urls = {
+    qa: "https://www.google.com",
+    dev: "https://www.qavbox.github.io",
+    prod: "https://www.facebook.com/",
+}*/
+
+/*if(Object.keys(urls).includes(env)){
+    baseurl = urls[env] //urls[qa]
+}else{
+    console.error("can't run tests, use command like - Env=qa/dev/prod npm run wdio")
+    process.exit()
+}*/
+
+baseurl = new data().getUrl()
     
 export const config: Options.Testrunner = {
     //
     // ====================
     // Runner Configuration
     // ====================
-    //
+    // 
     //
     // =====================
     // ts-node Configurations
@@ -25,7 +47,7 @@ export const config: Options.Testrunner = {
         // for all available options
         tsNodeOpts: {
             transpileOnly: true,
-            project: 'test/tsconfig.json'
+            project: 'tsconfig.json'
         }
         // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
         // do please make sure "tsconfig-paths" is installed as dependency
@@ -52,7 +74,7 @@ export const config: Options.Testrunner = {
     specs: [
         //'./test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
-        './test/elements/shadowDom.ts'
+        './test/elements/baseUrlTest.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -89,6 +111,14 @@ export const config: Options.Testrunner = {
         //
         browserName: 'chrome',
         acceptInsecureCerts: true,
+
+        'goog:chromeOptions': {
+            // to run chrome headless the following flags are required
+            // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
+            //args: ['--headless', '--disable-gpu']
+            //https://chromedriver.chromium.org/capabilities
+            //https://peter.sh/experiments/chromium-command-line-switches/
+        },
         //timeouts: { implicit: 0, pageLoad: 300000, script: 30000 },
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
@@ -126,7 +156,8 @@ export const config: Options.Testrunner = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost',
+    //baseUrl: 'http://qa.facebook.com',
+    baseUrl: baseurl,
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,

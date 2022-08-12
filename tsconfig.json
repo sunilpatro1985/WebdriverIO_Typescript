@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
         "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
         "types": [
             "node",
             "webdriverio/async",
