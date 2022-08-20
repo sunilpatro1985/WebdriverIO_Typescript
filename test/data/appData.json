@@ -1,0 +1,27 @@
+{
+    "urls": 
+    {
+        "qa": "https://www.google.com",
+        "dev": "https://qavbox.github.io",
+        "prod": "https://www.saucedemo.com/"
+    },
+    "users":[
+        {
+            "env":"qa",
+            "country":"IN",
+            "username":"123",
+            "password":"p123"
+        },
+        {
+            "env":"dev",
+            "username":"456",
+            "password":"p456"
+        },
+        {
+            "env":"prod",
+            "username":"standard_user",
+            "password":"secret_sauce"
+        }
+
+    ]
+}

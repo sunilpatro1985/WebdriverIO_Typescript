@@ -1,11 +1,33 @@
 import type { Options } from '@wdio/types'
+//const urls = require("./test/data/urls")
 
+//const data = require('./test/util/appData')
+import data from './test/util/appData'
+
+let baseurl: string
+//let env = process.env.Env
+
+/*let urls = {
+    qa: "https://www.google.com",
+    dev: "https://www.qavbox.github.io",
+    prod: "https://www.facebook.com/",
+}*/
+
+/*if(Object.keys(urls).includes(env)){
+    baseurl = urls[env] //urls[qa]
+}else{
+    console.error("can't run tests, use command like - Env=qa/dev/prod npm run wdio")
+    process.exit()
+}*/
+
+baseurl = new data().getUrl()
+    
 export const config: Options.Testrunner = {
     //
     // ====================
     // Runner Configuration
     // ====================
-    //
+    // 
     //
     // =====================
     // ts-node Configurations
@@ -25,7 +47,7 @@ export const config: Options.Testrunner = {
         // for all available options
         tsNodeOpts: {
             transpileOnly: true,
-            project: 'test/tsconfig.json'
+            project: 'tsconfig.json'
         }
         // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
         // do please make sure "tsconfig-paths" is installed as dependency
@@ -50,8 +72,7 @@ export const config: Options.Testrunner = {
     // will be called from there.
     //
     specs: [
-        //'./test/sampleSpecs/**/*.ts'
-        './test/pom/specs/**/*.ts'
+        './test/specs/**/*.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -87,7 +108,16 @@ export const config: Options.Testrunner = {
         maxInstances: 5,
         //
         browserName: 'chrome',
-        acceptInsecureCerts: true
+        acceptInsecureCerts: true,
+
+        'goog:chromeOptions': {
+            // to run chrome headless the following flags are required
+            // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
+            //args: ['--headless', '--disable-gpu']
+            //https://chromedriver.chromium.org/capabilities
+            //https://peter.sh/experiments/chromium-command-line-switches/
+        },
+        //timeouts: { implicit: 0, pageLoad: 300000, script: 30000 },
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
@@ -100,7 +130,7 @@ export const config: Options.Testrunner = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    logLevel: 'error',
     //
     // Set specific log levels per logger
     // loggers:
@@ -124,7 +154,8 @@ export const config: Options.Testrunner = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost',
+    //baseUrl: 'http://qa.facebook.com',
+    baseUrl: baseurl,
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -140,7 +171,7 @@ export const config: Options.Testrunner = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver'],
+    services: ['selenium-standalone'],
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -170,7 +201,7 @@ export const config: Options.Testrunner = {
     // Options to be passed to Jasmine.
     jasmineOpts: {
         // Jasmine default timeout
-        defaultTimeoutInterval: 60000,
+        defaultTimeoutInterval: 25000,
         //
         // The Jasmine framework allows interception of each assertion in order to log the state of the application
         // or website depending on the result. For example, it is pretty handy to take a screenshot every time
