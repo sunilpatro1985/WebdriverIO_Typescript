@@ -74,7 +74,7 @@ export const config: Options.Testrunner = {
     specs: [
         //'./test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
-        './test/elements/scrollings.ts',
+        './test/elements/browserExecute.ts',
     ],
     // Patterns to exclude.
     exclude: [
