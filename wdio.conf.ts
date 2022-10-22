@@ -4,6 +4,9 @@ import type { Options } from '@wdio/types'
 //const data = require('./test/util/appData')
 import data from './test/util/appData'
 
+let debug = process.env.debug
+
+
 let baseurl: string
 //let env = process.env.Env
 
@@ -23,6 +26,7 @@ let baseurl: string
 baseurl = new data().getUrl()
     
 export const config: Options.Testrunner = {
+    execArgv: debug ? ['--inspect'] : [],
     //
     // ====================
     // Runner Configuration
@@ -72,7 +76,11 @@ export const config: Options.Testrunner = {
     // will be called from there.
     //
     specs: [
-        './test/specs/**/*.ts'
+
+        './test/pom/specs/**/*.ts'
+        //'./test/samples/**/*.ts'
+        //'./test/elements/accessibilitySelector.ts',
+
     ],
     // Patterns to exclude.
     exclude: [
@@ -172,7 +180,8 @@ export const config: Options.Testrunner = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: ['selenium-standalone'],
-    
+    //['selenium-standalone', { drivers: { firefox: '0.29.1', chrome: '98.0.4758.102', chromiumedge: 'latest' } }]
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -201,7 +210,7 @@ export const config: Options.Testrunner = {
     // Options to be passed to Jasmine.
     jasmineOpts: {
         // Jasmine default timeout
-        defaultTimeoutInterval: 25000,
+        defaultTimeoutInterval: debug ? 25000000: 25000,
         //
         // The Jasmine framework allows interception of each assertion in order to log the state of the application
         // or website depending on the result. For example, it is pretty handy to take a screenshot every time
