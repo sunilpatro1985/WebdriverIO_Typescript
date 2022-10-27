@@ -1,3 +1,5 @@
 node_modules/
 api/
 .DS_Store
+report/*
+!report/.gitkeep

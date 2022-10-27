@@ -1,5 +1,6 @@
 import type { Options } from '@wdio/types'
 //const urls = require("./test/data/urls")
+const allure = require('allure-commandline')
 
 //const data = require('./test/util/appData')
 import data from './test/util/appData'
@@ -201,9 +202,11 @@ export const config: Options.Testrunner = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
-
-
+    reporters: ['spec', ['allure', {
+        outputDir: 'report/allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: false,
+    }]],
     
     //
     // Options to be passed to Jasmine.
@@ -313,8 +316,12 @@ export const config: Options.Testrunner = {
      * @param {Boolean} result.passed    true if test has passed, otherwise false
      * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        if (!passed) {
+            await browser.takeScreenshot();
+        }
+     },
+
 
 
     /**
@@ -359,6 +366,26 @@ export const config: Options.Testrunner = {
      */
     // onComplete: function(exitCode, config, capabilities, results) {
     // },
+        onComplete: function() {
+            const reportError = new Error('Could not generate Allure report')
+            const generation = allure(['generate', 'report/allure-results', '--clean', '-o', 'report/allure-reports'])
+            return new Promise<void>((resolve, reject) => {
+                const generationTimeout = setTimeout(
+                    () => reject(reportError),
+                    5000)
+    
+                generation.on('exit', function(exitCode) {
+                    clearTimeout(generationTimeout)
+    
+                    if (exitCode !== 0) {
+                        return reject(reportError)
+                    }
+    
+                    console.log('Allure report successfully generated')
+                    resolve()
+                })
+            })
+        }
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session
