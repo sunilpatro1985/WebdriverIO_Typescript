@@ -5,6 +5,7 @@ const allure = require('allure-commandline')
 
 //const data = require('./test/util/appData')
 import data from './test/util/appData'
+let allureDir = "./reports/allure"
 
 let debug = process.env.debug
 
@@ -205,7 +206,7 @@ export const config: Options.Testrunner = {
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec', ['allure', {
-        outputDir: 'allure-results',
+        outputDir: allureDir + '/allure-results',
         disableWebdriverStepsReporting: true,
         disableWebdriverScreenshotsReporting: false,
         //https://www.webmo.net/link/help/AccessingLocalFiles.html
@@ -291,8 +292,23 @@ export const config: Options.Testrunner = {
      * Hook that gets executed before the suite starts
      * @param {Object} suite suite details
      */
-    // beforeSuite: function (suite) {
-    // },
+    beforeSuite: function (suite) {
+        const fs = require('fs')
+        let dir = allureDir+'/allure-results'
+
+        try{
+            if(fs.existsSync(dir)){
+                fs.rmSync(dir,{recursive: true} )
+                console.log(`${dir} is deleted!`)
+            }
+        }catch(err){
+            console.error("error while deleting this dir");
+            if(!fs.existsSync(dir)){
+                fs.mkdirSync(dir, {recursive: true})
+                console.log("dir got created")
+            }
+        }
+    },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
@@ -372,7 +388,7 @@ export const config: Options.Testrunner = {
     // },
         onComplete: function() {
             const reportError = new Error('Could not generate Allure report')
-            const generation = allure(['generate', 'allure-results', '--clean'])
+            const generation = allure(['generate', allureDir+'/allure-results', '--clean', '-o', allureDir+'/allure-report'])
             return new Promise<void>((resolve, reject) => {
                 const generationTimeout = setTimeout(
                     () => reject(reportError),

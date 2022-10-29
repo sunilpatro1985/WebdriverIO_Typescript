@@ -3,5 +3,3 @@ api/
 .DS_Store
 reports/
 .vscode/
-allure-report
-allure-results
