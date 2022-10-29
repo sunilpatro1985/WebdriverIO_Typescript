@@ -1,9 +1,11 @@
 import type { Options } from '@wdio/types'
-//const urls = require("./test/data/urls")
 const allure = require('allure-commandline')
+
+//const urls = require("./test/data/urls")
 
 //const data = require('./test/util/appData')
 import data from './test/util/appData'
+let allureDir = "./reports/allure"
 
 let debug = process.env.debug
 
@@ -77,9 +79,11 @@ export const config: Options.Testrunner = {
     // will be called from there.
     //
     specs: [
+
         './test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
         //'./test/elements/accessibilitySelector.ts',
+
     ],
     // Patterns to exclude.
     exclude: [
@@ -181,7 +185,6 @@ export const config: Options.Testrunner = {
     services: ['selenium-standalone'],
     //['selenium-standalone', { drivers: { firefox: '0.29.1', chrome: '98.0.4758.102', chromiumedge: 'latest' } }]
 
-    
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -203,9 +206,11 @@ export const config: Options.Testrunner = {
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec', ['allure', {
-        outputDir: 'report/allure-results',
+        outputDir: allureDir + '/allure-results',
         disableWebdriverStepsReporting: true,
         disableWebdriverScreenshotsReporting: false,
+        //https://www.webmo.net/link/help/AccessingLocalFiles.html
+        //https://stackoverflow.com/questions/58856470/allure-report-clean-in-wdio-in-webdriverio
     }]],
     
     //
@@ -287,8 +292,23 @@ export const config: Options.Testrunner = {
      * Hook that gets executed before the suite starts
      * @param {Object} suite suite details
      */
-    // beforeSuite: function (suite) {
-    // },
+    beforeSuite: function (suite) {
+        const fs = require('fs')
+        let dir = allureDir+'/allure-results'
+
+        try{
+            if(fs.existsSync(dir)){
+                fs.rmSync(dir,{recursive: true} )
+                console.log(`${dir} is deleted!`)
+            }
+        }catch(err){
+            console.error("error while deleting this dir");
+            if(!fs.existsSync(dir)){
+                fs.mkdirSync(dir, {recursive: true})
+                console.log("dir got created")
+            }
+        }
+    },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
@@ -368,7 +388,7 @@ export const config: Options.Testrunner = {
     // },
         onComplete: function() {
             const reportError = new Error('Could not generate Allure report')
-            const generation = allure(['generate', 'report/allure-results', '--clean', '-o', 'report/allure-reports'])
+            const generation = allure(['generate', allureDir+'/allure-results', '--clean', '-o', allureDir+'/allure-report'])
             return new Promise<void>((resolve, reject) => {
                 const generationTimeout = setTimeout(
                     () => reject(reportError),

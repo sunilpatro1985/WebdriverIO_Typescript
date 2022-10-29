@@ -15,6 +15,4 @@ export default class Page {
     async getUrl(){
         return await browser.getUrl()
     }
-
-   
 }
