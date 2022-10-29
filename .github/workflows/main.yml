@@ -14,7 +14,7 @@ jobs:
         - name: Test
           run: npm run wdio
         - uses: actions/upload-artifact@v1
-          if: failure()
+          #if: failure()
           with:
             name: allureHtmlReport
             path: ./reports/allure/allure-report/index.html
