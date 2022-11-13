@@ -29,6 +29,8 @@ let baseurl: string
 baseurl = new data().getUrl()
     
 export const config: Options.Testrunner = {
+    user: 'sunilpatro1',
+        key: 'u8ToDKojK3u6rzbXKpuc',
     execArgv: debug ? ['--inspect'] : [],
     //
     // ====================
@@ -111,7 +113,7 @@ export const config: Options.Testrunner = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
+    capabilities: [/*{
     
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
@@ -127,13 +129,23 @@ export const config: Options.Testrunner = {
             //args: ['--headless', '--disable-gpu', '--disable-dev-shm-usage']
             //https://chromedriver.chromium.org/capabilities
             //https://peter.sh/experiments/chromium-command-line-switches/
-        },
+        }
+        }*/
+        {
+            browserName: 'Chrome',
+            browserVersion: '103.0',
+            'bstack:options': {
+              os: 'Windows',
+              osVersion: '11'
+            }
+        }
+        
         //timeouts: { implicit: 0, pageLoad: 300000, script: 30000 },
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
         // excludeDriverLogs: ['bugreport', 'server'],
-    }],
+    ],
     //
     // ===================
     // Test Configurations
@@ -182,7 +194,10 @@ export const config: Options.Testrunner = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['selenium-standalone'],
+    //services: ['selenium-standalone'],
+    services:[['browserstack', {
+        browserstackLocal: true
+    }]],
     //services: [['selenium-standalone', {drivers: {chrome:'106.0.5249.61'}}]],
     //['selenium-standalone', { drivers: { firefox: '0.29.1', chrome: '98.0.4758.102', chromiumedge: 'latest' } }]
 
@@ -313,9 +328,8 @@ export const config: Options.Testrunner = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    beforeTest: function (test, context) {
-        browser.maximizeWindow()
-    },
+    // beforeTest: function (test, context) {
+    // },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
      * beforeEach in Mocha)

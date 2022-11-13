@@ -3,3 +3,4 @@ api/
 .DS_Store
 reports/
 .vscode/
+*.log

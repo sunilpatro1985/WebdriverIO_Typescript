@@ -7,10 +7,10 @@ import allureReporter from '@wdio/allure-reporter'
 
 describe('My Login application', () => {
 
-    it('should behave...', () => {
+    xit('should behave...', () => {
         expect(2).toBe(2)
     });
-    xit('should login with valid credentials', async () => {
+    it('should login with valid credentials', async () => {
         allureReporter.addStep("opening the browser url")
         allureReporter.addFeature("valid login")
         allureReporter.addSeverity("critical")
@@ -29,7 +29,7 @@ describe('My Login application', () => {
         await expect(SecurePage.flashAlert).toHaveTextContaining(
             'You logged into a secure area!');
     });
-    xit('should login with invalid username', async () => {
+    it('should login with invalid username', async () => {
         allureReporter.addFeature("invalid login")
         allureReporter.addSeverity("minor")
 
@@ -44,7 +44,7 @@ describe('My Login application', () => {
         await expect(SecurePage.flashAlert).toHaveTextContaining(
             'You logged into a secure area!');
     });
-    xit('should login with invalid credentials', async () => {
+    it('should login with invalid credentials', async () => {
         await LoginPage.open();
         await browser.pause(1000)
         console.log("Page url --- "+ await LoginPage.getUrl())
