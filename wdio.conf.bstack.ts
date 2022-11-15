@@ -3,7 +3,7 @@ var _=require("lodash")
 
 var overrides = {
     user: 'sunilpatro1' || process.env.BROWSERSTACK_USERNAME, 
-    key: 'u8ToDKojK3u6rzbXKpuc' || process.env.BROWSERSTACK_ACCESS_KEY,
+    key: 'DigCzWykobcbrA3ydCsU' || process.env.BROWSERSTACK_ACCESS_KEY,
 
     specs: [
         './test/pom/specs/**/*.ts'
