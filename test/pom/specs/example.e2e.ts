@@ -7,9 +7,9 @@ import allureReporter from '@wdio/allure-reporter'
 
 describe('My Login application', () => {
 
-    xit('should behave...', () => {
+    /*xit('should behave...', () => {
         expect(2).toBe(2)
-    });
+    });*/
     it('should login with valid credentials', async () => {
         allureReporter.addStep("opening the browser url")
         allureReporter.addFeature("valid login")
