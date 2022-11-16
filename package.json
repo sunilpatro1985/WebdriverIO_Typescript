@@ -23,6 +23,7 @@
         "wdio:bstack": "wdio run wdio.conf.bstack.ts"
     },
     "dependencies": {
-        "allure-commandline": "^2.18.1"
+        "allure-commandline": "^2.18.1",
+        "dotenv": "^16.0.3"
     }
 }
