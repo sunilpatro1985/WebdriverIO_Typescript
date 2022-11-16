@@ -21,8 +21,8 @@ jobs:
           run: npm install
         - name: Test
           env:
-            BROWSERSTACK_USERNAME: ${{secrcets.BROWSERSTACK_USERNAME}}
-            BROWSERSTACK_ACCESS_KEY: ${{secrcets.BROWSERSTACK_ACCESS_KEY}}
+            BROWSERSTACK_USERNAME: ${{secrets.BROWSERSTACK_USERNAME}}
+            BROWSERSTACK_ACCESS_KEY: ${{secrets.BROWSERSTACK_ACCESS_KEY}}
           run: npm run wdio:bstack 
           continue-on-error: true
         - uses: actions/upload-artifact@v3
