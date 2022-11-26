@@ -1,0 +1,27 @@
+name: CIBstack Dispatch
+#on: [push, pull_request]
+on:
+   workflow_dispatch:
+    inputs:
+      platform:
+        description: 'select where to run'
+        required: true
+        default: 'github'
+        type: choice
+        options:
+        - github
+        - bstack
+      artifacts:
+        description: 'Artifact reporting'
+        required: false
+        type: boolean
+    push:
+      branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
