@@ -15,6 +15,9 @@ on:
         description: 'Publish artifacts'
         required: true
         type: boolean
+  push:
+    branches:
+      - 'bstack'      
       
 jobs:
   build:
