@@ -15,9 +15,6 @@ on:
         description: 'Publish artifacts'
         required: true
         type: boolean
-  push:
-    branches:
-      - 'bstack'      
       
 jobs:
   build:
@@ -36,9 +33,6 @@ jobs:
         - name: Test
           if: ${{ github.event.inputs.platform == 'github' }}
           run: npm run wdio
-          continue-on-error: true
-
-        - name: Test on bstack  
           if: ${{ github.event.inputs.platform == 'browserstack' }}
           env:
             BROWSERSTACK_USERNAME: ${{secrets.BROWSERSTACK_USERNAME}}
