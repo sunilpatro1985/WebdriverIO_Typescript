@@ -4,3 +4,4 @@ api/
 reports/
 .vscode/
 *.log
+.env
