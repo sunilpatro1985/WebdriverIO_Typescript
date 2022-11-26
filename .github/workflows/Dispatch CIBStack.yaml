@@ -44,7 +44,7 @@ jobs:
           run: npm run wdio:bstack 
           continue-on-error: true
 
-        - if: github.event.inputs.artifacts == true 
+        - if: github.event.inputs.artifacts == 'true' 
           uses: actions/upload-artifact@v3
           with:
             name: allureReport
