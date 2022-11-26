@@ -3,11 +3,11 @@ name: CI
 on:
   push:
     branches:
-      - bstack
+      - bstack1
   pull_request:
     # Sequence of patterns matched against refs/heads
     branches:    
-      - bstack
+      - bstack1
 jobs:
   build:
     runs-on: ubuntu-latest

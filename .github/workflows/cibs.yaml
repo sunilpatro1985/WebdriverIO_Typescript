@@ -1,0 +1,53 @@
+name: CIBS
+#on: [push, pull_request]
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'select where to run'
+        required: true
+        default: 'github'
+        type: choice
+        options:
+        - github
+        - browserstack
+      artifacts:
+        description: 'Publish artifacts'
+        required: true
+        type: boolean
+  push:
+    branches:
+      - 'bstack'      
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 18
+
+        - name: Install
+          run: npm install
+
+        - name: Test
+          if: ${{ github.event.inputs.platform == 'github' }}
+          run: npm run wdio
+          continue-on-error: true
+
+        - name: Test on bstack  
+          if: ${{ github.event.inputs.platform == 'browserstack' }}
+          env:
+            BROWSERSTACK_USERNAME: ${{secrets.BROWSERSTACK_USERNAME}}
+            BROWSERSTACK_ACCESS_KEY: ${{secrets.BROWSERSTACK_ACCESS_KEY}}
+          run: npm run wdio:bstack 
+          continue-on-error: true
+
+        - if: github.event.inputs.artifacts == 'true'
+          uses: actions/upload-artifact@v3
+          with:
+            name: allureReport
+            path: ./reports/allure/allure-report
