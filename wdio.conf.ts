@@ -1,10 +1,11 @@
 import type { Options } from '@wdio/types'
-const allure = require('allure-commandline')
-
+//const allure = require('allure-commandline')
+import allure from 'allure-commandline'
 //const urls = require("./test/data/urls")
+import * as fs from 'fs';
 
 //const data = require('./test/util/appData')
-import data from './test/util/appData'
+import data from './test/util/appData.js'
 let allureDir = "./reports/allure"
 
 let debug = process.env.debug
@@ -80,9 +81,9 @@ export const config: Options.Testrunner = {
     //
     specs: [
 
-        './test/pom/specs/**/*.ts'
+        //''./test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
-        //'./test/elements/accessibilitySelector.ts',
+        './test/elements/scrollings.ts',
 
     ],
     // Patterns to exclude.
@@ -182,7 +183,7 @@ export const config: Options.Testrunner = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: [['selenium-standalone', {drivers:{chrome:'106.0.5249.61'}}]],
+    services: [['selenium-standalone', {drivers:{chrome:'111.0.5563.64'}}]],
     //services: [['selenium-standalone', {drivers: {chrome:'106.0.5249.61'}}]],
     //['selenium-standalone', { drivers: { firefox: '0.29.1', chrome: '98.0.4758.102', chromiumedge: 'latest' } }]
 
@@ -294,7 +295,8 @@ export const config: Options.Testrunner = {
      * @param {Object} suite suite details
      */
     beforeSuite: function (suite) {
-        const fs = require('fs')
+        //const fs = require('fs')
+
         let dir = allureDir+'/allure-results'
 
         try{

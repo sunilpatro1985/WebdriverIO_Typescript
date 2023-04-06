@@ -21,7 +21,7 @@ describe('different types of alerts', () => {
                 await fetch(url).then(async (resp) =>{
                     //expect(resp.status).toMatch(/^[2-3].*/)
                     expect(resp.status)
-                    .withContext("link '" + await link.getText() +  "' returned a status "+ resp.status)
+                    //.withContext("link '" + await link.getText() +  "' returned a status "+ resp.status)
                     .toBeLessThan(400)
                 })
             })

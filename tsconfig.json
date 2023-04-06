@@ -3,13 +3,15 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "module":"CommonJS",
+        "module":"esnext",
         "types": [
             "node",
-            "webdriverio/async",
-            "@wdio/jasmine-framework",
-            "expect-webdriverio"
+            "@wdio/globals/types",
+            //"webdriverio/async",
+            "@wdio/jasmine-framework"
+            //"expect-webdriverio"
         ],
-        "target": "es2019"
+        "target": "es2020",
+        "allowSyntheticDefaultImports": true
     }
 }
