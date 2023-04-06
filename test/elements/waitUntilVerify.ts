@@ -3,7 +3,7 @@ import {alertIsPresent} from 'wdio-wait-for';
 
 describe('different types of waitUntil commands', () => {
 
-    xit('verify waitUntil a text appears', async () => {
+    it('verify waitUntil a text appears', async () => {
         browser.url("https://qavbox.github.io/demo/delay/")
         await browser.pause(1000)
         //console.log(browser.capabilities)
@@ -12,7 +12,7 @@ describe('different types of waitUntil commands', () => {
         await el.waitUntil(async function(){
             return (await this.getText()) != ''},
             {
-                timeout:6000,
+                timeout:2000,
                 timeoutMsg: "text didn't appear for delay element"
             })
 
@@ -35,7 +35,7 @@ describe('different types of waitUntil commands', () => {
         expect(await $$("input[type='text']").length).toBeGreaterThan(3)
         await browser.pause(3000)
     });
-    it('verify waitUntil title changes', async () => {
+    xit('verify waitUntil title changes', async () => {
         browser.url("https://qavbox.github.io/demo/")
         await browser.pause(1000)
         //console.log(browser.capabilities)

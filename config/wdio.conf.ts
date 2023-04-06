@@ -4,7 +4,7 @@ const allure = require('allure-commandline')
 //const urls = require("./test/data/urls")
 
 //const data = require('./test/util/appData')
-import data from './test/util/appData'
+import data from '../test/util/appData'
 let allureDir = "./reports/allure"
 
 let debug = process.env.debug
@@ -80,10 +80,10 @@ export const config: Options.Testrunner = {
     //
     specs: [
 
-        './test/pom/specs/**/*.ts'
+        //'./test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
         //'./test/elements/accessibilitySelector.ts',
-
+        '../test/elements/waitUntilVerify.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -124,7 +124,7 @@ export const config: Options.Testrunner = {
         'goog:chromeOptions': {
             // to run chrome headless the following flags are required
             // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-            args: ['--headless', '--disable-gpu', '--disable-dev-shm-usage']
+            //args: ['--headless', '--disable-gpu', '--disable-dev-shm-usage']
             //https://chromedriver.chromium.org/capabilities
             //https://peter.sh/experiments/chromium-command-line-switches/
         },
@@ -182,7 +182,7 @@ export const config: Options.Testrunner = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: [['selenium-standalone', {drivers:{chrome:'106.0.5249.61'}}]],
+    services: [['selenium-standalone', {drivers:{chrome:'111.0.5563.64'}}] ],
     //services: [['selenium-standalone', {drivers: {chrome:'106.0.5249.61'}}]],
     //['selenium-standalone', { drivers: { firefox: '0.29.1', chrome: '98.0.4758.102', chromiumedge: 'latest' } }]
 
