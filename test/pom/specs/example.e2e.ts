@@ -29,7 +29,7 @@ describe('My Login application', () => {
         await expect(SecurePage.flashAlert).toHaveTextContaining(
             'You logged into a secure area!');
     });
-    xit('should login with invalid username', async () => {
+    it('should login with invalid username', async () => {
         allureReporter.addFeature("invalid login")
         allureReporter.addSeverity("minor")
 

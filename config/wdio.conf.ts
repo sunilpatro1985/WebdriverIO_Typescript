@@ -4,7 +4,7 @@ const allure = require('allure-commandline')
 //const urls = require("./test/data/urls")
 
 //const data = require('./test/util/appData')
-import data from './test/util/appData'
+import data from '../test/util/appData'
 let allureDir = "./reports/allure"
 
 let debug = process.env.debug
