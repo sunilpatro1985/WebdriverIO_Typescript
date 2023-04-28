@@ -1,7 +1,7 @@
-import LoginPage from  '../pageobjects/login.page';
-import Page from '../pageobjects/page';
-import SecurePage from '../pageobjects/secure.page';
-import SettingsPage from '../pageobjects/Settings.page';
+import LoginPage from  '../pageobjects/login.page.js'
+import Page from '../pageobjects/page.js'
+import SecurePage from '../pageobjects/secure.page.js'
+import SettingsPage from '../pageobjects/Settings.page.js'
 import allureReporter from '@wdio/allure-reporter'
 
 
@@ -44,7 +44,7 @@ describe('My Login application', () => {
         await expect(SecurePage.flashAlert).toHaveTextContaining(
             'You logged into a secure area!');
     });
-    xit('should login with invalid credentials', async () => {
+    it('should login with invalid credentials', async () => {
         await LoginPage.open();
         await browser.pause(1000)
         console.log("Page url --- "+ await LoginPage.getUrl())

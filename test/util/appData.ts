@@ -1,4 +1,5 @@
-const data = require ('../data/appData.json')
+//const data = require ('../data/appData.json')
+import data from '../data/appData.json' assert{type:'json'}
 
 export default class appData{
 

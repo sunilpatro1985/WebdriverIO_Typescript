@@ -1,11 +1,14 @@
 import type { Options } from '@wdio/types'
-const allure = require('allure-commandline')
+//const allure = require('allure-commandline')
+import allure from 'allure-commandline'
+import * as fs from 'fs'
 
 //const urls = require("./test/data/urls")
 
 //const data = require('./test/util/appData')
-import data from '../test/util/appData'
-let allureDir = "./reports/allure"
+import data from '../test/util/appData.js'
+
+let allureDir = './reports/allure'
 
 let debug = process.env.debug
 
@@ -80,9 +83,9 @@ export const config: Options.Testrunner = {
     //
     specs: [
 
-        './test/pom/specs/**/*.ts'
+        '../test/pom/specs/**/*.ts'
         //'./test/samples/**/*.ts'
-        //'./test/elements/accessibilitySelector.ts',
+        //'../test/elements/accessibilitySelector.ts',
 
     ],
     // Patterns to exclude.
@@ -206,7 +209,7 @@ export const config: Options.Testrunner = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec', ['allure', {
+    reporters: ['spec',['allure', {
         outputDir: allureDir + '/allure-results',
         disableWebdriverStepsReporting: true,
         disableWebdriverScreenshotsReporting: false,
@@ -243,6 +246,24 @@ export const config: Options.Testrunner = {
      */
     // onPrepare: function (config, capabilities) {
     // },
+
+    onPrepare: function (config, capabilities) {
+       //const fs = require('fs')
+       let dir = allureDir+'/allure-results'
+
+       try{
+           if(fs.existsSync(dir)){
+               fs.rmSync(dir,{recursive: true} )
+               console.log(`${dir} is deleted!`)
+           }
+       }catch(err){
+           console.error("error while deleting this dir");
+       }
+       if(!fs.existsSync(dir)){
+        fs.mkdirSync(dir, {recursive: true})
+        console.log("dir got created")
+    }
+    },
     /**
      * Gets executed before a worker process is spawned and can be used to initialise specific service
      * for that worker as well as modify runtime environments in an async fashion.
@@ -294,21 +315,7 @@ export const config: Options.Testrunner = {
      * @param {Object} suite suite details
      */
     beforeSuite: function (suite) {
-        const fs = require('fs')
-        let dir = allureDir+'/allure-results'
-
-        try{
-            if(fs.existsSync(dir)){
-                fs.rmSync(dir,{recursive: true} )
-                console.log(`${dir} is deleted!`)
-            }
-        }catch(err){
-            console.error("error while deleting this dir");
-            if(!fs.existsSync(dir)){
-                fs.mkdirSync(dir, {recursive: true})
-                console.log("dir got created")
-            }
-        }
+       
     },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
@@ -338,9 +345,9 @@ export const config: Options.Testrunner = {
      * @param {Boolean} result.passed    true if test has passed, otherwise false
      * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+    afterTest: function(test, context, { error, result, duration, passed, retries }) {
         if (!passed) {
-            await browser.takeScreenshot();
+            browser.takeScreenshot();
         }
      },
 

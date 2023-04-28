@@ -1,6 +1,5 @@
 
 import { forEachChild } from "typescript";
-import locators from "./locators";
 import locatorsPage from './locators';
 
 
